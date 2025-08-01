@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Ajusta a tu proveedor
+// Ej: mysql://user:pass@localhost:3306/pasapalabras_db
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum RelationType {
+  SYNONYM
+  ANTONYM
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  clerkId   String   @unique           
+  email     String   @unique
+  name      String
+  score     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Word {
+  id          Int             @id @default(autoincrement())
+  text        String          @unique
+  definition  String          @db.Text
+  origin      String?         // idioma, región, etc.
+  latin       String?         // raíz latina opcional
+
+  // Relaciones (bidireccionales)
+  relationsFrom WordRelation[] @relation("FromWord")
+  relationsTo   WordRelation[] @relation("ToWord")
+}
+
+model WordRelation {
+  id           Int          @id @default(autoincrement())
+  fromWordId   Int
+  toWordId     Int
+  relationType RelationType
+
+  fromWord Word @relation("FromWord", fields: [fromWordId], references: [id])
+  toWord   Word @relation("ToWord", fields: [toWordId], references: [id])
+
+  @@unique([fromWordId, toWordId, relationType])
+}

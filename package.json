@@ -1,0 +1,37 @@
+{
+  "name": "back-end-games",
+  "version": "1.0.0",
+  "description": "back in the games",
+  "homepage": "https://github.com/JoakinGC/games-practices#readme",
+  "bugs": {
+    "url": "https://github.com/JoakinGC/games-practices/issues"
+  },
+  "repository": "git+https://github.com/JoakinGC/games-practices.git",
+  "license": "MIT",
+  "author": "Joaquin Contreras",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc -p .",
+    "start": "node dist/index.js",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:generate": "prisma generate",
+    "prisma:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.13.23",
+    "@clerk/express": "^1.7.14",
+    "@prisma/client": "^6.12.0",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "prisma": "^6.12.0",
+    "zod": "^4.0.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.1.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
+}
